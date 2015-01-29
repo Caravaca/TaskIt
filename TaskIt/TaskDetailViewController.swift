@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskDetailViewController: UIViewController {
+class TaskDetailViewController: UIViewController, UITextFieldDelegate {
     
     var detailTaskModel: TaskModel!
 
@@ -19,12 +19,14 @@ class TaskDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         
-        self.taskTextField.text = detailTaskModel.task
-        self.subTaskTextField.text = detailTaskModel.subTask
-        self.dueDatePicker.date = detailTaskModel.date
+        taskTextField.delegate = self
+        subTaskTextField.delegate = self
+        
+        taskTextField.text = detailTaskModel.task
+        subTaskTextField.text = detailTaskModel.subTask
+        dueDatePicker.date = detailTaskModel.date
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,5 +51,13 @@ class TaskDetailViewController: UIViewController {
         
         self.navigationController?.popViewControllerAnimated(true)
     }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        subTaskTextField.resignFirstResponder()
+        taskTextField.resignFirstResponder()
+        return true;
+    }
+
+    
 
 }

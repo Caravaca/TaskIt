@@ -9,16 +9,18 @@
 import UIKit
 import CoreData
 
-class AddTaskViewController: UIViewController {
+class AddTaskViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var taskTextField: UITextField!
     @IBOutlet weak var subTaskTextField: UITextField!
     @IBOutlet weak var dueDatePicker: UIDatePicker!
+    
         
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        taskTextField.delegate = self
+        subTaskTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,5 +63,12 @@ class AddTaskViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
         
     }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        subTaskTextField.resignFirstResponder()
+        taskTextField.resignFirstResponder()
+        return true;
+    }
+
 
 }
